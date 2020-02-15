@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css'
+import { Square } from "./Square";
 
 class Sudoku extends React.Component {
   constructor(props) {
@@ -20,30 +21,39 @@ class Sudoku extends React.Component {
   }
 
   componentDidMount(){
-    this.fillMySudoku()
+    var sudokuBox = this.fillMySudoku()  
+    this.setState({squares: sudokuBox})
+    console.log(this.state.squares);
   }
 
   fillMySudoku = () =>{
     var sudoku = this.state.squares
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
-         do{
-          var randomNumber = Math.floor(Math.random()*10)
-          
-          if(
-            this.checkRow(i, randomNumber, sudoku) && 
-            this.checkColumn(j, randomNumber, sudoku) &&
-            this.checkBox(i, j, randomNumber, sudoku)
-            ){
-            sudoku[i][j]=randomNumber
+         do{        
+          var randomNumber = Math.floor(Math.random()*9)+1
+          if(this.checkRow(i, randomNumber, sudoku) && this.checkColumn(j, randomNumber, sudoku) &&this.checkBox(i, j, randomNumber, sudoku)){
+            sudoku[i][j]=randomNumber            
           }else{
-            sudoku[i][j]=null    
+            this.checkOneMoreTime(sudoku) 
           } 
         }while (sudoku[i][j] === 0 )
       } 
     }
-    console.log(sudoku);    
+    return sudoku
   }
+
+  checkOneMoreTime = (array) => {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        var randomNumber = Math.floor(Math.random()*9)+1
+        if(this.checkRow(i, randomNumber, array) && this.checkColumn(j, randomNumber, array) &&this.checkBox(i, j, randomNumber, array)){
+          array[i][j]=randomNumber
+        }
+      }
+    }
+  }
+
 
   checkRow = (i,randomNumber, array) => {  
       for (let j = 0; j < 9; j++) {
@@ -109,7 +119,9 @@ class Sudoku extends React.Component {
   render() {
     return (
       <div>
-
+        {this.state.squares.map((row, key)=>{
+          return (<div>{row}</div>)
+        })}
       </div>
     );
   }
