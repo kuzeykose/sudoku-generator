@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css'
 import { Square } from "./Square";
 
+
 class Sudoku extends React.Component {
   constructor(props) {
     super(props);
@@ -26,32 +27,25 @@ class Sudoku extends React.Component {
     console.log(this.state.squares);
   }
 
-  fillMySudoku = () =>{
+
+  fillMySudoku = () => {
     var sudoku = this.state.squares
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-         do{        
-          var randomNumber = Math.floor(Math.random()*9)+1
-          if(this.checkRow(i, randomNumber, sudoku) && this.checkColumn(j, randomNumber, sudoku) &&this.checkBox(i, j, randomNumber, sudoku)){
-            sudoku[i][j]=randomNumber            
-          }else{
-            this.checkOneMoreTime(sudoku) 
-          } 
-        }while (sudoku[i][j] === 0 )
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j <3; j++) {
+        this.check(i,j,sudoku)
       } 
     }
     return sudoku
   }
 
-  checkOneMoreTime = (array) => {
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        var randomNumber = Math.floor(Math.random()*9)+1
-        if(this.checkRow(i, randomNumber, array) && this.checkColumn(j, randomNumber, array) &&this.checkBox(i, j, randomNumber, array)){
-          array[i][j]=randomNumber
-        }
+  check = (i,j,array) =>{
+    var randomNumber
+    do{      
+      randomNumber = Math.floor(Math.random()*9)+1
+      if(this.checkBox(i, j, randomNumber, array) && this.checkRow(i, randomNumber, array) && this.checkColumn(j, randomNumber, array) ){
+        array[i][j] = randomNumber            
       }
-    }
+    }while (array[i][j] === 0 )
   }
 
 
