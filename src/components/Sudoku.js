@@ -1,13 +1,11 @@
 import React from 'react';
 import '../App.css'
-import { Square } from "./Square";
-
 
 class Sudoku extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: [
+      sudoku: [
         [0,0,0,0,0,0,0,0,0,],
         [0,0,0,0,0,0,0,0,0,],
         [0,0,0,0,0,0,0,0,0,],
@@ -23,24 +21,24 @@ class Sudoku extends React.Component {
 
   componentDidMount(){
     var sudokuBox = this.fillMySudoku()  
-    this.setState({squares: sudokuBox})
-    console.log(this.state.squares);
+    this.setState({sudoku: sudokuBox})
+    console.log(this.state.sudoku);
   }
 
   fillMySudoku = () => {
-    var sudoku = this.state.squares
+    var updatedSudoku = this.state.sudoku
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j <9; j++) {
-        this.check(i,j,sudoku)
-        if (sudoku[i][j] === undefined) {
+        this.fillMyBox(i,j,updatedSudoku)
+        if (updatedSudoku[i][j] === undefined) {
           j=0
         }
       } 
     }
-    return sudoku
+    return updatedSudoku
   }
 
-  check = (i,j,array) => {
+  fillMyBox = (i,j,array) => {
     var randomNumber
     do {
       var myNumberArray = []
@@ -55,43 +53,29 @@ class Sudoku extends React.Component {
     
   }
 
-  // check = (i,j,array) =>{
-  //   var myNumberArray = [1,2,3,4,5,6,7,8,9]
-  //   var randomNumber
-  //   do{ 
-  //     randomNumber = Math.floor(Math.random()*myNumberArray.length)+1
-  //     if(this.checkBox(i, j, randomNumber, array) && this.checkRow(i, randomNumber, array) && this.checkColumn(j, randomNumber, array) ){
-  //       array[i][j] = randomNumber 
-  //     }      
-  //   }while (array[i][j] === 0)
-
-  // }
-
-
-
-  checkRow = (i,randomNumber, array) => {  
+  checkRow = (i,posibleNumbers, array) => {  
       for (let j = 0; j < 9; j++) {
-        if(array[i][j]===randomNumber) {
+        if(array[i][j]===posibleNumbers) {
           return false
         }   
     }
     return true
   }
 
-  checkColumn = (j,randomNumber, array) => {  
+  checkColumn = (j,posibleNumbers, array) => {  
     for (let i = 0; i < 9; i++) {      
-      if(array[i][j]===randomNumber) {
+      if(array[i][j]===posibleNumbers) {
         return false
       }   
     }
     return true
   }
 
-  checkBox = (i, j, randomNumber, array) => {
+  checkBox = (i, j, posibleNumbers, array) => {
     var object = this.takeNumberPosition(i,j)    
     for (let r = object.x1; r <= object.x2; r++) {
       for (let c = object.y1; c <= object.y2; c++) {
-        if(array[r][c]===randomNumber) 
+        if(array[r][c]===posibleNumbers) 
           return false
       }
     }
@@ -133,7 +117,7 @@ class Sudoku extends React.Component {
   render() {
     return (
       <div>
-        {this.state.squares.map((row, key)=>{
+        {this.state.sudoku.map((row, key)=>{
           return (<div>{row}</div>)
         })}
       </div>
