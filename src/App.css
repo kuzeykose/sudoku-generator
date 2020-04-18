@@ -55,3 +55,9 @@
   text-align: center;
   width: 34px;
 }
+
+th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+}
