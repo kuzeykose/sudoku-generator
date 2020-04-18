@@ -1,13 +1,21 @@
 import React from 'react';
 
-function DifficiltyButtons(props) {
+function DifficiltyButtons({ gameModDifficulty }) {
+  var modes = ['easy', 'medium', 'hard']
 
   return (
-    <div className="">
-      <button >Easy</button>
-      <button>Medium</button>
-      <button>Hard</button>
-    </div>
+    <div>
+      {/* <ul>
+        <li><a onClick={() => gameModDifficulty()} >Easy</a></li>
+        <li><a onClick={() => gameModDifficulty()} >Medium</a></li>
+        <li><a onClick={() => gameModDifficulty()} >Hard</a></li>
+      </ul> */}
+
+      {modes.map((mode, index) =>
+        <li key={index} onClick={() => gameModDifficulty(index)}> {mode} </li>
+      )}
+
+    </div >
   )
 }
 
