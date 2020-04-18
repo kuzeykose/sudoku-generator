@@ -1,8 +1,6 @@
-import React from 'react';
-import '../App.css'
-import SudokuTable from "./sudokuTable";
+import React from 'react'
 
-class Sudoku extends React.Component {
+class sudokuGenerator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +16,6 @@ class Sudoku extends React.Component {
         [0, 0, 0, 0, 0, 0, 0, 0, 0,],
       ]
     };
-  }
-
-  componentDidMount() {
-    var sudokuBox = this.fillMySudoku()
-    this.setState({ sudoku: sudokuBox })
   }
 
   fillMySudoku = () => {
@@ -113,11 +106,5 @@ class Sudoku extends React.Component {
     }
     return object
   }
-
-  render() {
-    return (
-      <SudokuTable sudoku={this.state.sudoku} />
-    );
-  }
 }
-export default Sudoku;
+export default sudokuGenerator

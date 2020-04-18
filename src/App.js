@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Sudoku from './components/Sudoku.js';
+import SudokuGame from './game/SudokuGame';
 
 function App() {
   return (
     <div className="App">
-      <Sudoku />
+      <SudokuGame />
     </div>
 
   );

@@ -6,7 +6,7 @@ function sudokuTable(props) {
     <div>
       {props.sudoku.map((row, key) => {
         return (<tr> {row.map((number, key2) => {
-          return (<th> {number}</th>)
+          return (<th> {number} </th>)
         })} </tr>)
       })}
     </div>
