@@ -28,18 +28,30 @@ class SudokuGame extends React.Component {
   gameModDifficulty = (index) => {
     switch (index) {
       case 0:
-        console.log('easy'); break //delete 43 item
+        console.log('easy');
+        this.removeItemsFromSudoku(46)
+        break
       case 1:
-        console.log('medium'); break //delete 51 item
+        console.log('medium');
+        this.removeItemsFromSudoku(53)
+        break
       case 2:
-        console.log('hard'); break //delete 56
+        console.log('hard');
+        this.removeItemsFromSudoku(56)
+        break
       default:
         break;
     }
   }
 
-  removeItemsFromSudoku = () => {
-
+  removeItemsFromSudoku = (spaceNumber) => {
+    var sudokuWithSpace = this.state.sudoku
+    for (let i = 0; i < spaceNumber; i++) {
+      var number1 = Math.floor(Math.random() * 9)
+      var number2 = Math.floor(Math.random() * 9)
+      sudokuWithSpace[number1][number2] = null
+    }
+    this.setState({ sudoku: sudokuWithSpace })
   }
 
   render() {
