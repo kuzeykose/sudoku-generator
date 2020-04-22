@@ -13,52 +13,55 @@ class SudokuGame extends React.Component {
     }
   }
 
-  componentDidMount() {
+  genereteSudoku = (index) => {
     var sudokuGame = new sudokuGenerator()
     var sudoku = sudokuGame.fillMySudoku()
-    this.setState({ sudoku: sudoku })
+    this.gameModDifficulty(index, sudoku)
   }
 
-  genereteSudoku = () => {
-    var sudokuGame = new sudokuGenerator()
-    var sudoku = sudokuGame.fillMySudoku()
-    console.log(sudoku);
-  }
-
-  gameModDifficulty = (index) => {
+  gameModDifficulty = (index, sudoku) => {
     switch (index) {
       case 0:
         console.log('easy');
-        this.removeItemsFromSudoku(46)
+        this.removeItemsFromSudoku(46, sudoku)
         break
       case 1:
         console.log('medium');
-        this.removeItemsFromSudoku(53)
+        this.removeItemsFromSudoku(53, sudoku)
         break
       case 2:
         console.log('hard');
-        this.removeItemsFromSudoku(56)
+        this.removeItemsFromSudoku(56, sudoku)
         break
-      default:
-        break;
     }
   }
 
-  removeItemsFromSudoku = (spaceNumber) => {
-    var sudokuWithSpace = this.state.sudoku
-    for (let i = 0; i < spaceNumber; i++) {
-      var number1 = Math.floor(Math.random() * 9)
-      var number2 = Math.floor(Math.random() * 9)
-      sudokuWithSpace[number1][number2] = null
+  removeItemsFromSudoku = (spaceNumber, sudokuwWithSpace) => {
+    var myNumbers = []
+
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        var number1 = i
+        var number2 = j
+        myNumbers.push(number1.toString() + number2.toString())
+      }
     }
-    this.setState({ sudoku: sudokuWithSpace })
+
+    for (let t = 0; t < spaceNumber; t++) {
+      var genereteRandomNumber = Math.floor(Math.random() * myNumbers.length)
+      var number = myNumbers[genereteRandomNumber]
+      number.split('')
+      myNumbers.splice(genereteRandomNumber, 1)
+      sudokuwWithSpace[number[0]][number[1]] = null
+    }
+    this.setState({ sudoku: sudokuwWithSpace })
   }
 
   render() {
     return (
       <div>
         <SudokuTable sudoku={this.state.sudoku} />
-        <DifficultyButtons gameModDifficulty={this.gameModDifficulty} />
+        <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
       </div>
     );
   }
