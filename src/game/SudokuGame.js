@@ -1,9 +1,12 @@
 import React from 'react';
 import '../App.css'
-import SudokuTable from "./sudokuTable";
+import SudokuTable from "../components/SudokuTable";
 import './sudokuGenerator.js'
 import sudokuGenerator from './sudokuGenerator.js';
 import DifficultyButtons from '../components/DifficultyButtons'
+import NumbersToCompiletSudoku from '../components/NumbersToCompiletSudoku'
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
 
 class SudokuGame extends React.Component {
   constructor(props) {
@@ -38,7 +41,6 @@ class SudokuGame extends React.Component {
 
   removeItemsFromSudoku = (spaceNumber, sudokuwWithSpace) => {
     var myNumbers = []
-
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         var number1 = i
@@ -46,7 +48,6 @@ class SudokuGame extends React.Component {
         myNumbers.push(number1.toString() + number2.toString())
       }
     }
-
     for (let t = 0; t < spaceNumber; t++) {
       var genereteRandomNumber = Math.floor(Math.random() * myNumbers.length)
       var number = myNumbers[genereteRandomNumber]
@@ -57,11 +58,15 @@ class SudokuGame extends React.Component {
     this.setState({ sudoku: sudokuwWithSpace })
   }
 
+
   render() {
     return (
       <div>
-        <SudokuTable sudoku={this.state.sudoku} />
-        <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
+        <DndProvider backend={Backend}>
+          <SudokuTable sudoku={this.state.sudoku} />
+          <NumbersToCompiletSudoku />
+          <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
+        </DndProvider>
       </div>
     );
   }
