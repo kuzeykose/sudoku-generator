@@ -1,29 +1,16 @@
 import React from 'react';
 import '../App.css'
-import { useDrop } from 'react-dnd'
-import { ItemTypes } from './constants/ItemTypes'
+import TableSquares from '../components/TableSquares'
 
 function SudokuTable(props) {
-
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.one,
-    drop: (item, monitor) => console.log(item),
-    collect: monitor => ({
-      isOver: !!monitor.isOver(),
-    }),
-  })
-
-
   return (
-    <div >
+    <div>
       {props.sudoku.map((row, key) => {
-        return (<div> {row.map((number, key2) => {
-          return (<div ref={drop}>{number}</div>)
-        })} </div>)
+        return (<tr> {row.map((number, key2) => {
+          return (<TableSquares key={key2} numbers={number} sudoku={props.sudoku} changeNumberOnSudoku={props.changeNumberOnSudoku} />)
+        })} </tr>)
       })}
-      <div >drop here</div>
     </div>
-
   )
 }
 

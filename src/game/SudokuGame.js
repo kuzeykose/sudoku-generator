@@ -16,12 +16,14 @@ class SudokuGame extends React.Component {
     }
   }
 
+  // generete sudoku with the game mod -> easy-medium-hard
   genereteSudoku = (index) => {
     var sudokuGame = new sudokuGenerator()
     var sudoku = sudokuGame.fillMySudoku()
     this.gameModDifficulty(index, sudoku)
   }
 
+  //take the index of button the arrange game mod { easy->46 space / medium->53 space / hard->56 space}
   gameModDifficulty = (index, sudoku) => {
     switch (index) {
       case 0:
@@ -39,6 +41,7 @@ class SudokuGame extends React.Component {
     }
   }
 
+  //remove items form table which choosen by users selected mod
   removeItemsFromSudoku = (spaceNumber, sudokuwWithSpace) => {
     var myNumbers = []
     for (let i = 0; i < 9; i++) {
@@ -58,12 +61,27 @@ class SudokuGame extends React.Component {
     this.setState({ sudoku: sudokuwWithSpace })
   }
 
+  // taking dropzone targertId 
+  // change 0-81 number index to 2d matrix index 
+  // {first item is divided 9 for column index, second item is mod 9 for row index }
+  changeNumberOnSudoku = (item, monitor) => {
+    var sudokuFill = this.state.sudoku
+    var myDropId = monitor.targetId
+    var myPosition = parseInt(myDropId.split("").splice(1, 3).join(""))
+    var myPositionObject = {
+      first: Math.floor(myPosition / 9) - 1,
+      second: myPosition % 9
+    }
+    sudokuFill[myPositionObject.first][myPositionObject.second] = parseInt(item.number)
+    this.setState({ sudoku: sudokuFill })
+  }
+
 
   render() {
     return (
       <div>
         <DndProvider backend={Backend}>
-          <SudokuTable sudoku={this.state.sudoku} />
+          <SudokuTable sudoku={this.state.sudoku} changeNumberOnSudoku={this.changeNumberOnSudoku} />
           <NumbersToCompiletSudoku />
           <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
         </DndProvider>
