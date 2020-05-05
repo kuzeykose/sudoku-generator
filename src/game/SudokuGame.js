@@ -8,6 +8,7 @@ import NumbersToCompiletSudoku from '../components/NumbersToCompiletSudoku'
 import { DndProvider } from 'react-dnd'
 import Backend from 'react-dnd-html5-backend'
 import RemoveItemsFromSudoku from "./RemoveItemsFromSudoku";
+import SudokuSolver from "./SudokuSolver";
 
 class SudokuGame extends React.Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class SudokuGame extends React.Component {
           <NumbersToCompiletSudoku />
           <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
         </DndProvider>
+        <SudokuSolver mySudoku={this.state.sudoku} />
       </div>
     );
   }
