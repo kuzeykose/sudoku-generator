@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css'
 import SudokuTable from "../components/SudokuTable";
 import './SudokuGenerator.js'
-import sudokuGenerator from './SudokuGenerator.js';
 import DifficultyButtons from '../components/DifficultyButtons'
 import NumbersToCompiletSudoku from '../components/NumbersToCompiletSudoku'
 import { DndProvider } from 'react-dnd'
@@ -14,7 +13,7 @@ class SudokuGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sudoku: []
+      sudoku: [],
     }
   }
 
@@ -37,15 +36,19 @@ class SudokuGame extends React.Component {
   }
 
   fillSudokuWhichNumberIsOkey = (row, column, item, sudoku) => {
-    var sudokuCheck = new sudokuGenerator()
-    var boxCheck = sudokuCheck.checkBox(row, column, item, sudoku)
-    var rowCheck = sudokuCheck.checkRow(row, item, sudoku)
-    var columnCheck = sudokuCheck.checkColumn(column, item, sudoku)
+    var number = new SudokuSolver()
 
-    if (sudoku[row][column] === null && boxCheck && rowCheck && columnCheck) {
+    if (sudoku[row][column] === null && number.isValid(sudoku, row, column, item)) {
       sudoku[row][column] = item
       this.setState({ sudoku: sudoku })
     }
+  }
+
+  solveMySudoku = () => {
+    var sudoku = this.state.sudoku
+    var solution = new SudokuSolver()
+    var solved = solution.solveMySudoku(sudoku)
+    this.setState({ sudoku: solved })
   }
 
   render() {
@@ -56,7 +59,7 @@ class SudokuGame extends React.Component {
           <NumbersToCompiletSudoku />
           <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
         </DndProvider>
-        <SudokuSolver mySudoku={this.state.sudoku} />
+        <button onClick={() => this.solveMySudoku()}></button>
       </div>
     );
   }

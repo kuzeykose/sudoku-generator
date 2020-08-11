@@ -3,6 +3,7 @@ import '../App.css'
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from './constants/ItemTypes'
 
+// secilebilir sayilar
 function TableSquares({ numbers, sudoku, key, changeNumberOnSudoku }) {
 
   // const changeNumberOnSudoku = (item, monitor) => {
@@ -24,9 +25,9 @@ function TableSquares({ numbers, sudoku, key, changeNumberOnSudoku }) {
   })
 
   return (
-    <th ref={drop}>
+    <td ref={drop}>
       {numbers}
-    </th>
+    </td>
   )
 }
 

@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 
-function SudokuSolver({ mySudoku }) {
+class SudokuSolver extends React.Component {
 
-  const solveMySudoku = (sudoku) => {
-    solveSudoku(sudoku)
-    console.log(sudoku);
-
+  solveMySudoku = (sudoku) => {
+    this.solveSudoku(sudoku)
+    return sudoku
   }
 
-  function isValid(board, row, col, k) {
+  isValid = (board, row, col, k) => {
     for (let i = 0; i < 9; i++) {
       const m = 3 * Math.floor(row / 3) + Math.floor(i / 3);
       const n = 3 * Math.floor(col / 3) + i % 3;
@@ -20,14 +19,14 @@ function SudokuSolver({ mySudoku }) {
   }
 
   //backtraking
-  var solveSudoku = function (board) {
+  solveSudoku = (board) => {
     for (let i = 0; i < 9; i++) {
       for (let j = 0; j < 9; j++) {
         if (board[i][j] == null) {
           for (let k = 1; k <= 9; k++) {
-            if (isValid(board, i, j, k)) {
+            if (this.isValid(board, i, j, k)) { //check is k okey for space???
               board[i][j] = k;
-              if (solveSudoku(board)) {
+              if (this.solveSudoku(board)) {
                 return true;
               } else {
                 board[i][j] = null;
@@ -40,12 +39,6 @@ function SudokuSolver({ mySudoku }) {
     }
     return true;
   }
-
-  return (
-    <div>
-      <button onClick={() => solveMySudoku(mySudoku)}> solve</button>
-    </div>
-  )
 }
 
 export default SudokuSolver
