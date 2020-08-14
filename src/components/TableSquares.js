@@ -3,7 +3,7 @@ import '../App.css'
 import { useDrop } from 'react-dnd'
 import { ItemTypes } from './constants/ItemTypes'
 
-// secilebilir sayilar
+// sudoku uzerindeki sayilar
 function TableSquares({ numbers, sudoku, key, changeNumberOnSudoku }) {
 
   // const changeNumberOnSudoku = (item, monitor) => {

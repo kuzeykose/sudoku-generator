@@ -53,10 +53,11 @@ class SudokuGame extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <DndProvider backend={Backend}>
-          <SudokuTable sudoku={this.state.sudoku} changeNumberOnSudoku={this.changeNumberOnSudoku} />
-          <NumbersToCompiletSudoku />
+          <div className="columns is-centered">
+            <SudokuTable sudoku={this.state.sudoku} changeNumberOnSudoku={this.changeNumberOnSudoku} />
+          </div>
           <DifficultyButtons gameModDifficulty={this.genereteSudoku} />
         </DndProvider>
         <button onClick={() => this.solveMySudoku()}></button>

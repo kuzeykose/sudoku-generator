@@ -12,9 +12,9 @@ const Square = ({ number }) => {
   })
 
   return (
-    <div ref={drag}>
+    <td ref={drag}>
       {number}
-    </div>
+    </td>
   )
 }
 export default Square

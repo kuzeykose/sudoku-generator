@@ -10,7 +10,7 @@ import Square from './Square'
 
 function NumbersToCompiletSudoku() {
   return (
-    <div>
+    <table className="table is-bordered column is-half">
       <Square number={"1"} />
       <Square number={"2"} />
       <Square number={"3"} />
@@ -20,7 +20,7 @@ function NumbersToCompiletSudoku() {
       <Square number={"7"} />
       <Square number={"8"} />
       <Square number={"9"} />
-    </div>
+    </table>
   )
 }
 
